@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}</style>
+</head>
+<body>
+<title>TOEFL Speaking Practice</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: one narrow reading column (white page, blue headings, dark grey text), topic list like a course index, question cards for study. */
+:root{
+  --bg:#ffffff; --surface:#f6f8fb; --fg:#2f3640; --muted:#66707d; --head:#0b5cad; --link:#0b5cad;
+  --line:#dde2e9; --accent-bg:#e8f1fb; --ok:#1c7c4a; --ok-bg:#e6f4ec; --fav:#b7791f; --focus:#0b5cad;
+  --font:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --surface:#1a212a; --fg:#d6dce4; --muted:#9aa5b1; --head:#7db6ff; --link:#7db6ff;
+  --line:#2c3541; --accent-bg:#1c2b3d; --ok:#6fd49a; --ok-bg:#16291f; --fav:#f0b955; --focus:#7db6ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --surface:#1a212a; --fg:#d6dce4; --muted:#9aa5b1; --head:#7db6ff; --link:#7db6ff;
+  --line:#2c3541; --accent-bg:#1c2b3d; --ok:#6fd49a; --ok-bg:#16291f; --fav:#f0b955; --focus:#7db6ff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:17px;line-height:1.6;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:820px;margin:0 auto}
+a{color:var(--link)}
+h1,h2,h3{color:var(--head);line-height:1.25;text-wrap:balance;margin:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+.topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.brand{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:15px;color:var(--head);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:16px}
+nav a{text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+nav a[aria-current="page"]{border-bottom-color:var(--head);font-weight:600}
+main{padding-top:28px}
+.crumb{font-size:15px;color:var(--muted);margin-bottom:10px}
+.hero h1{font-size:clamp(28px,5vw,40px);text-transform:uppercase;letter-spacing:.03em}
+.hero .sub{font-size:20px;color:var(--fg);margin:6px 0 14px;font-weight:600}
+.hero p{max-width:62ch;margin:0 0 22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 30px;padding:0;list-style:none}
+.stats li{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.stats b{display:block;font-size:28px;line-height:1.1;color:var(--head);font-variant-numeric:tabular-nums}
+.stats span{font-size:14px;color:var(--muted)}
+.search{display:flex;gap:10px;align-items:center;margin:0 0 6px}
+.search input{flex:1;min-width:0;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.search input::placeholder{color:var(--muted)}
+.count{font-size:14px;color:var(--muted);margin:0 0 8px}
+.topics{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.topics li{border-bottom:1px solid var(--line)}
+.topics a.row{display:grid;grid-template-columns:96px 1fr auto;gap:4px 14px;align-items:baseline;padding:14px 4px;text-decoration:none;color:inherit}
+.topics a.row:hover{background:var(--surface)}
+.topics .num{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.topics .name{color:var(--link);font-size:19px;font-weight:600;text-decoration:underline;text-underline-offset:3px;min-width:0}
+.topics .meta{font-size:14px;color:var(--muted);white-space:nowrap;text-align:right}
+.topics .meta .done{color:var(--ok);font-weight:600}
+.empty{padding:22px 4px;color:var(--muted)}
+.section-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:34px}
+.section-links a{display:block;border:1px solid var(--line);border-radius:6px;padding:14px 16px;text-decoration:none;color:inherit}
+.section-links a:hover{background:var(--surface)}
+.section-links strong{display:block;color:var(--head);font-size:18px}
+.section-links span{font-size:15px;color:var(--muted)}
+.pagehead{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;justify-content:space-between;margin-bottom:6px}
+.pagehead h1{font-size:clamp(24px,4.4vw,32px)}
+.progress{font-size:15px;color:var(--muted);margin:6px 0 0}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 18px;max-width:320px}
+.bar i{display:block;height:100%;background:var(--ok);width:0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.btn{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:8px 14px;font-size:15px;text-decoration:none;color:var(--link);display:inline-flex;align-items:center;gap:6px;line-height:1.3}
+.btn:hover{background:var(--surface)}
+.btn.primary{background:var(--head);border-color:var(--head);color:var(--bg);font-weight:600}
+.btn.primary:hover{opacity:.92;background:var(--head)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.card{border:1px solid var(--line);border-radius:8px;padding:20px 20px 18px;margin:0 0 20px;background:var(--bg);scroll-margin-top:16px}
+.card .kicker{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted);margin-bottom:8px}
+.card h2{font-size:15px;text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+.qtext{font-size:21px;font-weight:600;color:var(--fg);margin:2px 0 14px;line-height:1.4}
+.ans-head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin:0 0 8px}
+.ans-head h3{font-size:16px}
+.tag{font-size:13px;background:var(--accent-bg);color:var(--head);border-radius:20px;padding:2px 10px;white-space:nowrap}
+.answer{background:var(--surface);border-left:3px solid var(--head);border-radius:0 6px 6px 0;padding:14px 16px;margin:0 0 14px}
+.answer p{margin:0;font-size:18px;line-height:1.7;max-width:64ch}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.check{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;font-size:15px;cursor:pointer;user-select:none}
+.check input{width:18px;height:18px;accent-color:var(--ok);margin:0}
+.check.on{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.favbtn[aria-pressed="true"]{border-color:var(--fav);color:var(--fav);font-weight:600}
+.qnav{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.topicnav{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin:26px 0 0}
+.models{display:grid;gap:16px}
+.model{border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.model h2{font-size:20px;margin-bottom:10px}
+.model ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.model li{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline}
+.model li b{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.model li span{min-width:0}
+.fav-item{margin-bottom:20px}
+.fav-item .from{font-size:14px;margin-bottom:6px}
+.practice{max-width:640px;margin:0 auto;text-align:center}
+.practice .qtext{font-size:clamp(22px,4.5vw,30px);margin:14px 0 26px;text-align:center}
+.clock{font-size:clamp(64px,16vw,96px);font-weight:700;color:var(--head);font-variant-numeric:tabular-nums;line-height:1;margin:6px 0 4px}
+.clock.end{color:var(--ok)}
+.tstate{color:var(--muted);font-size:15px;min-height:24px;margin:0 0 16px}
+.practice .actions{justify-content:center}
+.practice .answer{text-align:left;margin-top:24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:560px){
+  body{font-size:16px}
+  .topics a.row{grid-template-columns:1fr auto}
+  .topics .num{grid-column:1 / -1}
+  .model li{grid-template-columns:1fr;gap:0}
+  .card{padding:16px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Ask AI helper, bottom left */
+.askfab[hidden],.askpanel[hidden],[hidden]{display:none!important}
+.askfab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:20;display:inline-flex;align-items:center;gap:8px;background:var(--head);color:var(--bg);border:0;border-radius:999px;padding:12px 18px;font-weight:600;font-size:16px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.askfab:hover{opacity:.93}
+.askpanel{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:30;width:min(440px,calc(100vw - 32px));height:min(640px,calc(100% - 32px));display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,.28);overflow:hidden}
+.askhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px 10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.askhead strong{color:var(--head);font-size:16px}
+.askhead .sub{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.askmsgs{flex:1;min-height:0;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:94%;padding:9px 12px;border-radius:10px;font-size:15.5px;line-height:1.55;overflow-wrap:anywhere}
+.msg.user{white-space:pre-wrap}
+.msg.bot{max-width:100%;width:100%}
+.msg.bot>:first-child{margin-top:0}.msg.bot>:last-child{margin-bottom:0}
+.msg p{margin:0 0 .7em}.msg h4,.msg h5,.msg h6{color:var(--head);margin:.9em 0 .35em;font-size:1em}
+.msg ul,.msg ol{margin:0 0 .7em;padding-left:1.4em}.msg li{margin:.15em 0}
+.msg code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--accent-bg);padding:1px 5px;border-radius:4px}
+.msg pre{background:var(--accent-bg);border-radius:6px;padding:10px 12px;overflow-x:auto;margin:0 0 .7em}
+.msg pre code{background:none;padding:0}
+.msgtools{display:flex;gap:8px;margin-top:6px}
+.msgtools button{background:none;border:0;color:var(--muted);font-size:13px;padding:2px 4px;text-decoration:underline}
+.msg.user{align-self:flex-end;background:var(--head);color:var(--bg)}
+.msg.bot{align-self:flex-start;background:var(--surface);border:1px solid var(--line)}
+.msg.err{align-self:flex-start;color:var(--fav);font-size:14.5px;background:transparent;padding:0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{background:var(--accent-bg);color:var(--head);border:0;border-radius:16px;padding:6px 12px;font-size:14px}
+.askform{display:flex;gap:8px;align-items:flex-end;padding:10px 12px;border-top:1px solid var(--line)}
+.askform textarea{flex:1;min-width:0;resize:none;line-height:1.4;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);max-height:110px}
+.askform .btn{padding:8px 14px}
+.keybox{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--surface);display:grid;gap:8px;font-size:14.5px}
+.keybox input{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-width:0;width:100%}
+.keybox p{margin:0}
+@media (max-width:560px){.askpanel{height:min(75%,540px)}}
+</style>
+
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="#home">TOEFL Speaking Practice</a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Topics</a>
+      <a href="#models" data-nav="models">Speaking Structures</a>
+      <a href="#favourites" data-nav="favourites">Favourites <span id="favCount"></span></a>
+    </nav>
+  </header>
+  <main id="app" tabindex="-1"></main>
+</div>
+
+<button class="askfab" id="askFab" type="button" aria-expanded="false" aria-controls="askPanel" hidden>Ask AI</button>
+<section class="askpanel" id="askPanel" aria-label="Ask AI helper" hidden>
+  <div class="askhead"><div><strong>Ask AI</strong><span class="sub">Ask anything, like a chat assistant</span></div>
+    <div style="display:flex;gap:6px"><button class="btn" type="button" id="askKey" hidden>API key</button><button class="btn" type="button" id="askNew">New chat</button><button class="btn" type="button" id="askClose" aria-label="Close assistant">Close</button></div></div>
+  <div class="askmsgs" id="askMsgs" aria-live="polite"></div>
+  <form class="askform" id="askForm">
+    <label class="sr" for="askInput">Type your message</label>
+    <textarea id="askInput" rows="2" placeholder="Message Ask AI (Enter to send, Shift+Enter for a new line)"></textarea>
+    <button class="btn primary" type="submit" id="askSend">Ask</button>
+    <button class="btn" type="button" id="askStop" hidden>Stop</button>
+  </form>
+</section>
+
+<script>
+/* ---------- Content (kept apart from the interface code) ---------- */
+const TOPICS = [{"id": 1, "name": "Remote Work", "questions": [{"q": "Describe the last time you worked away from your usual place.", "a": "In my case, I prefer working at home. The main reason is that I can concentrate better. This means that I can finish my work without distractions. For example, I can study quietly in my room. As a result, I can complete my tasks more easily."}, {"q": "How do you react to remote work?", "a": "I would say that I prefer working from home to working in an office. The main reason is that I can concentrate better. This means that I can avoid noise and distractions. For example, I can study quietly in my room. Compared with an office, working from home is more comfortable for me."}, {"q": "Do remote workers get better work-life balance?", "a": "In my opinion, remote work can improve work-life balance. The main reason is that people save travel time. This means that they have more time for family and hobbies. For example, they can spend time with their families after work. Therefore, I believe remote work can make daily life better."}, {"q": "Should companies invest in virtual social events?", "a": "I think virtual social events are important because they connect remote workers. One major benefit is that employees can get to know each other. This is useful because it makes teamwork easier. For example, they can share ideas during online games. As a result, workers may feel happier and less isolated."}]}, {"id": 2, "name": "Celebrations", "questions": [{"q": "Describe a celebration you enjoyed.", "a": "In my case, I enjoy family celebrations. The main reason is that they make me happy. This means that we can spend quality time together. For example, we can enjoy food and take photos at a family gathering. As a result, we create wonderful memories."}, {"q": "Do you prefer small family celebrations or large parties?", "a": "I would say that I prefer small family celebrations to large parties. The main reason is that I feel more comfortable with people I know. This means that I can talk freely and enjoy the occasion. For example, I like sharing food and stories with my family. Compared with large parties, small gatherings help me relax."}, {"q": "Do celebrations build stronger relationships?", "a": "In my opinion, celebrations help people build stronger relationships. The main reason is that they bring family members and friends together. This means that people can talk and share stories. For example, relatives can meet at a family celebration. Therefore, I believe celebrations help people feel closer and more connected."}, {"q": "Are public celebrations important for a community?", "a": "I think public celebrations are important because they bring people together. One major benefit is that neighbours can meet and talk. This is useful because people can build friendships and trust. For example, communities can organise festivals with food and music. As a result, people may feel closer to their community."}]}, {"id": 3, "name": "Shopping Habits", "questions": [{"q": "Describe a recent shopping experience.", "a": "In my case, I recently bought a laptop online. The main reason is that I needed it for my studies. This means that I can compare different products before buying. For example, I can check prices and features on my phone. As a result, I can choose a suitable laptop more easily."}, {"q": "Do you prefer online shopping or shopping in stores?", "a": "I would say that I prefer online shopping to shopping in stores. The main reason is that it saves time. This means that I can compare products from home. For example, I can check prices on my phone without visiting crowded shops. Compared with shopping in stores, online shopping is more convenient for me."}, {"q": "Is online shopping a better option?", "a": "In my opinion, online shopping is usually the better option. The main reason is that it offers more choices. This means that people can compare prices and product features. For example, I can compare different laptops before buying one. Therefore, I believe online shopping helps people make better choices."}, {"q": "Is personalised AI shopping useful?", "a": "I think personalised AI shopping may be useful because it saves time. One major benefit is that it can suggest suitable products quickly. This is useful because people can find products more easily. For example, a store may recommend items based on previous searches. As a result, some people may like this service, but others may worry about privacy."}]}, {"id": 4, "name": "Language Learning", "questions": [{"q": "How do you practise a language?", "a": "In my case, I practise English every day. The main reason is that I want to improve my communication skills. This means that I can express my ideas more clearly. For example, I learn new words and practise speaking English aloud. As a result, I become more confident when speaking English."}, {"q": "Do you prefer daily practice or practising only sometimes?", "a": "I would say that I prefer practising English every day to studying only sometimes. The main reason is that regular practice helps me improve faster. This means that I can remember new words and correct my mistakes. For example, I practise speaking and repeat English sentences every day. Compared with occasional practice, daily practice is more effective for me."}, {"q": "Is learning another language useful?", "a": "In my opinion, learning another language is very useful. The main reason is that it improves communication skills. This means that people can express their ideas clearly and find more opportunities. For example, I am learning English to prepare for my studies and future career. Therefore, I believe learning another language can help people achieve their goals."}, {"q": "Should governments support language learning?", "a": "I think government support for language learning is important because it creates more opportunities. One major benefit is that people can improve their communication skills. This is useful because they can study and work more easily. For example, governments can provide free English classes and online lessons. As a result, more people can improve their English and prepare for better opportunities."}]}, {"id": 5, "name": "Smartphones", "questions": [{"q": "Describe the last time you used your phone for something important.", "a": "In my case, I recently used my phone to find an important location. The main reason is that I did not know the way. This means that my phone helped me find information quickly. For example, I used a map application to get directions. As a result, I reached the place easily and felt relaxed."}, {"q": "How do you react to your phone in daily life?", "a": "I would say that I find my phone useful, but sometimes distracting. The main reason is that I use it for many daily activities. This means that I can learn new things and communicate with others. For example, I use my phone to study and contact my family. Compared with a computer, my phone is easier to carry."}, {"q": "Do smartphones make life better?", "a": "In my opinion, smartphones make life easier. The main reason is that they save time. This means that we can find information and learn new things quickly. For example, students can watch online lessons and use study materials on their phones. Therefore, I believe smartphones are useful in daily life."}, {"q": "Should schools and workplaces encourage healthier phone habits?", "a": "I think healthy phone habits are important because they help people focus better. One major benefit is that people can avoid distractions. This is useful because they can finish their work more easily. For example, students can keep their phones away while studying. As a result, they can learn better and work faster."}]}, {"id": 6, "name": "Household Chores", "questions": [{"q": "Describe the last household task you did.", "a": "In my case, I recently cleaned my room at home. The main reason is that I wanted to keep my room clean. This means that I can study better and avoid distractions. For example, I cleaned my desk and arranged my books. As a result, I felt happy and comfortable in my room."}, {"q": "How do you feel about doing household chores?", "a": "I would say that I prefer doing simple household chores to difficult tasks. The main reason is that simple chores are easy to finish. This means that I can save time and avoid stress. For example, I enjoy cleaning my room and arranging my books. Compared with difficult tasks, simple chores make me feel more comfortable."}, {"q": "Do you prefer small daily tasks or one big clean-up?", "a": "I would say that I prefer doing small household tasks every day to cleaning everything at once. The main reason is that small daily tasks save time. This means that I can manage my daily activities more easily. For example, I clean my room for ten minutes every day. Compared with one big clean-up, doing small tasks every day is easier for me."}, {"q": "Should schools teach basic home skills?", "a": "In my opinion, schools should teach students basic household skills. The main reason is that these skills are useful in daily life. This means that students can do simple household tasks without help. For example, students can learn cooking and cleaning and simple repairs at school. Therefore, I believe these skills can make students more independent."}]}, {"id": 7, "name": "Physical Activity", "questions": [{"q": "Describe the last time you were physically active.", "a": "In my case, I recently played cricket with my friends. The main reason is that I wanted to stay healthy and active. This means that I can improve my fitness and reduce stress. For example, I usually play cricket with my friends in the evening. As a result, I feel energetic, relaxed, and happy."}, {"q": "How do you feel about being physically active?", "a": "In my case, I enjoy being physically active. The main reason is that exercise helps me feel energetic. This means that I can reduce stress and improve my mood. For example, I enjoy walking or playing cricket with my friends in my free time. As a result, I feel refreshed and can focus better on my studies."}, {"q": "Which is more important: exercise or a healthy diet?", "a": "In my opinion, regular exercise is very important for good health. The main reason is that exercise keeps our bodies strong. This means that we can improve our fitness and reduce stress. For example, playing cricket or walking every day can help people stay active and healthy. Therefore, I believe regular exercise is important, although a healthy diet is also necessary."}, {"q": "Will schools spend more time on physical education?", "a": "In my opinion, schools should provide more time for physical education. The main reason is that exercise is important for students' health. This means that students can stay active, improve their fitness, and reduce stress from studying. For example, schools can organise cricket matches and other sports activities. Therefore, I believe schools should balance academic subjects with physical education to support students' overall development."}]}, {"id": 8, "name": "Current Events", "questions": [{"q": "Do you prefer getting news online or reading newspapers?", "a": "I would say that I prefer online news. The main reason is that it saves time. This means that I can get information quickly on my phone. For example, I read headlines in my free time. Compared with newspapers, online news is more convenient."}, {"q": "How do you feel after reading the news?", "a": "In my case, I feel informed and confident after reading the news. The main reason is that news gives me useful information. This means that I can understand what is happening around me. For example, I follow technology, education, and job news. As a result, I feel more prepared."}, {"q": "Do you prefer national or international news?", "a": "In my opinion, international news is also important. The main reason is that countries are connected. This means that events in one country can affect others. For example, technology developed abroad can create worldwide opportunities. Therefore, I believe people should follow both."}, {"q": "Why is it important to understand the news you read?", "a": "I think understanding news is important because people need to know what is true. One major benefit is identifying false information. This is useful because people can avoid incorrect news. For example, teachers can show students reliable news websites. As a result, people become informed and responsible."}]}, {"id": 9, "name": "Education", "questions": [{"q": "Do you prefer online or in-person classes?", "a": "In my opinion, in-person classes are better for me. The main reason is that I can interact directly with teachers. This means that I can ask questions and discuss difficult subjects. For example, I can talk with my classmates and teachers during class. Therefore, I think in-person classes are more effective."}, {"q": "Is taking a gap year a good idea?", "a": "In my opinion, taking a gap year can be a good idea. The main reason is that students can explore their interests. This means that they can understand their career choices. For example, they can learn programming or get a part-time job. Therefore, I believe they can make better decisions."}, {"q": "Describe a time you disagreed with a classmate.", "a": "In my case, I once disagreed with a classmate during a college project. The main reason was that we had different ideas. This means that we needed to understand each other's opinions. For example, we discussed both ideas and selected the best solution. As a result, we completed the project successfully."}, {"q": "How do you remember important deadlines?", "a": "In my case, I use my phone calendar to remember deadlines. The main reason is that I do not want to forget them. This means that I can organise my study schedule. For example, I add assignment and exam dates to my calendar. As a result, I can complete tasks on time."}]}, {"id": 10, "name": "Reading Habits", "questions": [{"q": "Do you prefer fiction or non-fiction books?", "a": "I would say that I prefer non-fiction books. The main reason is that I can learn new things. This means that they improve my knowledge and vocabulary. For example, I read about technology and personal development. Compared with fiction, non-fiction is more useful for learning."}, {"q": "Do you prefer buying books online or in a bookstore?", "a": "I would say that I prefer buying books online. The main reason is that it saves time. This means that I can find books from home. For example, I can compare prices on my phone. Compared with visiting a store, online shopping is more convenient."}, {"q": "Describe something you read that caught your attention.", "a": "In my case, I recently read an article about AI. The main reason it caught my attention is that I am interested in technology. This means that I enjoy learning about new developments. For example, the article explained how AI can help students and programmers. As a result, I became more interested in AI."}, {"q": "Has social media reduced people's attention to reading?", "a": "In my opinion, too much social media can reduce attention. The main reason is that people become used to short videos. This means that they may find it difficult to focus on long articles. For example, students check social media while studying. Therefore, I believe people should reduce social media use and read more."}]}, {"id": 11, "name": "Social Media", "questions": [{"q": "Does social media have a positive or negative effect on people?", "a": "In my opinion, social media has both positive and negative effects. The main reason is that it helps communication. This means that people can stay connected and find information. For example, students can watch educational videos. Therefore, I believe social media is useful when people control their usage."}, {"q": "Describe a post or video that affected you.", "a": "In my case, I once saw a video about AI. The main reason it affected me is that I am interested in technology. This means that I like discovering new tools and ideas. For example, the video showed AI tools for programmers. As a result, I became more interested in AI skills."}, {"q": "How does social media fit into your daily routine?", "a": "In my case, I use social media in my free time. The main reason is that I want to stay connected and learn. This means that I can communicate and find information. For example, I use LinkedIn for job opportunities and professional updates. As a result, I stay informed and improve my knowledge."}, {"q": "Should children use social media?", "a": "In my opinion, children should have limited access rather than a complete ban. The main reason is that too much use can distract them. This means that they may spend less time studying or playing outside. For example, parents can set screen-time limits. Therefore, parental guidance is important."}]}, {"id": 12, "name": "Part-Time Jobs", "questions": [{"q": "Should students have part-time jobs?", "a": "In my opinion, students can work part-time while studying. The main reason is that they can earn money and gain experience. This means that they can learn practical skills. For example, they can work as a shop or computer assistant. Therefore, part-time work is helpful if students manage their study time."}, {"q": "What job would you like to do in the future?", "a": "In my case, I am interested in becoming a data analyst. The main reason is that I like data and technology. This means that I can use programming and problem-solving skills. For example, I can work with Python and SQL. As a result, I can build experience and develop my career."}, {"q": "How important is earning money?", "a": "In my case, earning money is important to me. The main reason is that I need it for daily expenses. This means that I can support myself and save for the future. For example, I can use it for travel, food, and study materials. As a result, earning money gives me independence."}, {"q": "Will AI make jobs harder for graduates?", "a": "In my opinion, AI may make some jobs harder for graduates. The main reason is that AI can perform basic tasks. This means that some companies may need fewer people for certain work. For example, AI can help with basic coding. Therefore, graduates should learn new technologies and practical skills."}]}, {"id": 13, "name": "Personal Finances", "questions": [{"q": "Describe an expensive item you bought.", "a": "In my case, I bought a laptop for my studies. The main reason is that I needed a study tool. This means that it helps me complete assignments and learn skills. For example, I use it for Python and online courses. As a result, it was a useful purchase."}, {"q": "Do you prefer saving money or spending money?", "a": "I would say that I prefer saving money. The main reason is that it helps me prepare for the future. This means that I can manage unexpected expenses. For example, I try to save some money every month. Compared with spending everything, saving gives me financial security."}, {"q": "How do you plan your expenses?", "a": "In my case, I plan my expenses. The main reason is that I want to avoid unnecessary spending. This means that I can save for important needs. For example, I check my monthly budget. As a result, I can manage my money responsibly."}, {"q": "Should schools teach personal finance?", "a": "I think personal finance education is important because it is a useful life skill. One major benefit is that students learn to save and spend wisely. This is useful because they can avoid money problems. For example, schools can teach budgeting and saving. As a result, students become financially responsible."}]}, {"id": 14, "name": "Transportation Preferences", "questions": [{"q": "What is your preferred way to travel in your city?", "a": "I would say that I prefer public transport. The main reason is that it saves money. This means that I do not need to pay for fuel or maintenance. For example, I can travel by bus or train. Compared with a private vehicle, public transport is more affordable."}, {"q": "How do you spend your time during a long journey?", "a": "In my case, I feel comfortable during long journeys. The main reason is that I can use my free time. This means that I can relax and avoid boredom. For example, I listen to music or watch videos on my phone. As a result, the journey feels more enjoyable."}, {"q": "Describe a long-distance trip you took.", "a": "In my case, I usually travel from Andhra Pradesh to Punjab by train to study at LPU University. The main reason is that my university is in Punjab, so the journey is very long. This means that I spend many hours on the train with my friends. For example, we listen to music, watch videos on our phones, and share our food with each other. As a result, the long journey feels enjoyable and we become closer as friends."}, {"q": "Do you prefer roads or public transport?", "a": "In my opinion, governments should invest more in public transport. The main reason is that many people depend on buses and trains. This means that better services make daily travel easier. For example, governments can improve bus and train services. Therefore, this helps students and workers."}]}, {"id": 15, "name": "Making Plans", "questions": [{"q": "Describe a detailed plan you made.", "a": "In my case, I made a study plan for an exam. The main reason is that I wanted to prepare properly. This means that I organised my subjects and time. For example, I divided topics into daily tasks. As a result, I studied in a more organised way."}, {"q": "Do you prefer detailed plans or being spontaneous?", "a": "I would say that I prefer making plans. The main reason is that it helps me stay organised. This means that I know which tasks I need to complete. For example, I prepare a daily timetable. Compared with deciding at the last minute, planning helps me manage time better."}, {"q": "How do you remember important dates?", "a": "In my case, I use my phone calendar. The main reason is that I do not want to forget important dates. This means that reminders help me stay organised. For example, I add assignment and exam dates. As a result, I can finish tasks on time."}, {"q": "Describe a plan that did not go as expected.", "a": "In my case, my assignment was not completed as planned. The main reason was that I needed more time to understand the topic. This means that other tasks were delayed. For example, I changed my timetable. As a result, I learned to allow extra time."}]}];
+
+const MODELS = [
+  {n:1,title:"Personal Experience & Habits",steps:[
+    ["Answer","In my case, I usually [activity]."],
+    ["Reason","The main reason is that [reason]."],
+    ["Explanation","This means that [explanation]."],
+    ["Example","For example, [specific example]."],
+    ["Ending","As a result, [result]."]]},
+  {n:2,title:"Preference & Comparison",steps:[
+    ["Answer","I would say that I prefer [option A] to [option B]."],
+    ["Reason","The main reason is that [reason]."],
+    ["Explanation","This means that [explanation]."],
+    ["Example","For example, [specific example]."],
+    ["Ending","Compared with [option B], [option A] is more [benefit] for me."]]},
+  {n:3,title:"Opinion & Agree/Disagree",steps:[
+    ["Answer","In my opinion, [opinion]."],
+    ["Reason","The main reason is that [reason]."],
+    ["Explanation","This means that [explanation]."],
+    ["Example","For example, [specific example]."],
+    ["Ending","Therefore, I believe [final opinion]."]]},
+  {n:4,title:"Benefits & Importance",steps:[
+    ["Answer","I think [topic] is important because [reason]."],
+    ["Reason","One major benefit is that [benefit]."],
+    ["Explanation","This is useful because [explanation]."],
+    ["Example","For example, [specific example]."],
+    ["Ending","As a result, [positive outcome]."]]}
+];
+const ORD = ["One","Two","Three","Four"];
+const TIMER_SECONDS = 45;
+
+/* ---------- Saved progress (localStorage, with a safe fallback) ---------- */
+const KEY = "toefl-speaking-hub-v1";
+let store = {done:{}, fav:{}};
+try { const raw = localStorage.getItem(KEY); if (raw) { const p = JSON.parse(raw); store = {done:p.done||{}, fav:p.fav||{}}; } } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+const kid = (t,q) => t + "-" + q;
+const isDone = (t,q) => !!store.done[kid(t,q)];
+const isFav = (t,q) => !!store.fav[kid(t,q)];
+function toggle(map,t,q){ const k = kid(t,q); if (store[map][k]) delete store[map][k]; else store[map][k] = true; save(); }
+const doneIn = t => TOPICS[t-1].questions.filter((_,i)=>isDone(t,i+1)).length;
+const totalDone = () => Object.keys(store.done).length;
+const totalFav = () => Object.keys(store.fav).length;
+
+/* ---------- Helpers ---------- */
+const $ = (s,r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const app = $("#app");
+function modelOf(a){ return a.startsWith("In my case")?1 : a.startsWith("I would say")?2 : a.startsWith("In my opinion")?3 : 4; }
+const modelName = n => MODELS[n-1].title;
+let timerId = null, pendingScroll = null;
+function stopTimer(){ if (timerId) { clearInterval(timerId); timerId = null; } }
+function updateChrome(){
+  $("#favCount").textContent = totalFav() ? "(" + totalFav() + ")" : "";
+  const h = (location.hash.replace("#","") || "home");
+  const cur = h.startsWith("topic")||h.startsWith("practice")||h==="home" ? "home" : h;
+  document.querySelectorAll("nav a").forEach(a => a.getAttribute("data-nav")===cur ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+}
+
+/* ---------- Pages ---------- */
+function renderHome(){
+  document.title = "TOEFL Speaking Practice";
+  app.innerHTML =
+   '<section class="hero"><h1>TOEFL Speaking Practice</h1>' +
+   '<div class="sub">My Personal TOEFL Speaking Preparation Hub</div>' +
+   '<p>Welcome to my TOEFL Speaking Practice Website. Practise all 15 topics, understand the questions, and improve your speaking confidence with simple and structured answers.</p></section>' +
+   '<ul class="stats" aria-label="Summary">' +
+     '<li><b>15</b><span>Total Topics</span></li><li><b>60</b><span>Total Questions</span></li>' +
+     '<li><b>4</b><span>Questions per Topic</span></li><li><b>4</b><span>Speaking Models</span></li>' +
+     '<li><b id="doneStat">0</b><span>Completed of 60</span></li></ul>' +
+   '<h2 style="font-size:22px;margin-bottom:12px">All Topics</h2>' +
+   '<div class="search"><label class="sr" for="q">Search topics by name</label>' +
+   '<input id="q" type="search" placeholder="Search topics by name" autocomplete="off"></div>' +
+   '<p class="count" id="count" aria-live="polite"></p>' +
+   '<ul class="topics" id="list"></ul>' +
+   '<div class="section-links"><a href="#models"><strong>My Four Speaking Structures</strong><span>Revise the four answer models.</span></a>' +
+   '<a href="#favourites"><strong>Favourite Questions</strong><span id="favLine"></span></a></div>';
+  $("#doneStat").textContent = totalDone();
+  $("#favLine").textContent = totalFav() ? totalFav() + " saved for quick revision." : "Star important questions to collect them here.";
+  const input = $("#q");
+  const draw = () => {
+    const term = input.value.trim().toLowerCase();
+    const hits = TOPICS.filter(t => t.name.toLowerCase().includes(term));
+    $("#list").innerHTML = hits.map(t => {
+      const d = doneIn(t.id);
+      return '<li><a class="row" href="#topic-' + t.id + '"><span class="num">Practice ' + t.id + '</span><span class="name">' + esc(t.name) + '</span>' +
+        '<span class="meta">' + t.questions.length + ' questions' + (d ? ' · <span class="done">' + d + '/' + t.questions.length + ' done</span>' : '') + '</span></a></li>';
+    }).join("") || '<li class="empty">No topic matches “' + esc(input.value.trim()) + '”. Try another word.</li>';
+    $("#count").textContent = term ? hits.length + " of 15 topics" : "";
+  };
+  input.addEventListener("input", draw);
+  draw();
+}
+
+function answerBlock(t,i,open){
+  const x = TOPICS[t-1].questions[i-1], m = modelOf(x.a);
+  return '<div class="ans-head"><h3>My Structured Answer</h3><span class="tag">Model ' + m + ' · ' + esc(modelName(m)) + '</span></div>' +
+    '<div class="answer" id="ans-' + t + '-' + i + '"' + (open?'':' hidden') + '><p>' + esc(x.a) + '</p></div>';
+}
+
+function cardHTML(t,i){
+  const x = TOPICS[t-1].questions[i-1];
+  const prevLabel = i>1 ? "Previous Question" : (t>1 ? "Previous Topic" : "");
+  const nextLabel = i<4 ? "Next Question" : (t<15 ? "Next Topic" : "");
+  return '<article class="card" id="q' + i + '" data-i="' + i + '">' +
+    '<div class="kicker"><h2>Question ' + ORD[i-1] + '</h2><span>Question ' + i + ' of 4</span></div>' +
+    '<div class="qtext">' + esc(x.q) + '</div>' +
+    '<div class="ans-wrap" data-i="' + i + '">' + answerBlock(t,i,false) + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn toggle" type="button" aria-expanded="false" aria-controls="ans-' + t + '-' + i + '" data-i="' + i + '">Show Answer</button>' +
+      '<a class="btn primary" href="#practice-' + t + '-' + i + '">Practice</a>' +
+      '<label class="check' + (isDone(t,i)?' on':'') + '"><input type="checkbox" class="done" data-i="' + i + '"' + (isDone(t,i)?' checked':'') + '> Completed</label>' +
+      '<button class="btn favbtn" type="button" aria-pressed="' + isFav(t,i) + '" data-i="' + i + '">' + (isFav(t,i)?'★ Favourite':'☆ Favourite') + '</button>' +
+    '</div>' +
+    '<div class="qnav">' +
+      (prevLabel ? '<button class="btn qprev" type="button" data-i="' + i + '">← ' + prevLabel + '</button>' : '<span></span>') +
+      (nextLabel ? '<button class="btn qnext" type="button" data-i="' + i + '">' + nextLabel + ' →</button>' : '<span></span>') +
+    '</div></article>';
+}
+
+function renderTopic(t){
+  const T = TOPICS[t-1];
+  document.title = T.name + " · TOEFL Speaking Practice";
+  app.innerHTML =
+    '<div class="crumb"><a href="#home">All topics</a> / Practice ' + t + '</div>' +
+    '<div class="pagehead"><h1>TOEFL Speaking Interview – ' + esc(T.name) + '</h1></div>' +
+    '<p class="progress" id="prog"></p><div class="bar" aria-hidden="true"><i id="barfill"></i></div>' +
+    '<div class="toolbar"><button class="btn" type="button" id="showAll">Show All Answers</button>' +
+    '<button class="btn" type="button" id="hideAll">Hide All Answers</button></div>' +
+    [1,2,3,4].map(i => cardHTML(t,i)).join("") +
+    '<div class="topicnav">' +
+      (t>1 ? '<a class="btn" href="#topic-' + (t-1) + '">← Previous Topic: ' + esc(TOPICS[t-2].name) + '</a>' : '<span></span>') +
+      (t<15 ? '<a class="btn" href="#topic-' + (t+1) + '">Next Topic: ' + esc(TOPICS[t].name) + ' →</a>' : '<span></span>') +
+    '</div>';
+  const prog = () => {
+    const d = doneIn(t);
+    $("#prog").textContent = "Progress: " + d + " of 4 questions completed";
+    $("#barfill").style.width = (d*25) + "%";
+  };
+  prog();
+  const setOpen = (i,open) => {
+    const box = $("#ans-" + t + "-" + i), b = app.querySelector('.toggle[data-i="' + i + '"]');
+    box.hidden = !open; b.setAttribute("aria-expanded", String(open)); b.textContent = open ? "Hide Answer" : "Show Answer";
+  };
+  $("#showAll").onclick = () => [1,2,3,4].forEach(i => setOpen(i,true));
+  $("#hideAll").onclick = () => [1,2,3,4].forEach(i => setOpen(i,false));
+  app.querySelectorAll(".toggle").forEach(b => b.onclick = () => setOpen(+b.dataset.i, b.getAttribute("aria-expanded")!=="true"));
+  app.querySelectorAll(".done").forEach(c => c.onchange = () => {
+    toggle("done",t,+c.dataset.i); c.parentElement.classList.toggle("on",c.checked); prog();
+  });
+  app.querySelectorAll(".favbtn").forEach(b => b.onclick = () => {
+    const i = +b.dataset.i; toggle("fav",t,i);
+    b.setAttribute("aria-pressed", String(isFav(t,i))); b.textContent = isFav(t,i) ? "★ Favourite" : "☆ Favourite"; updateChrome();
+  });
+  const go = (i) => { const c = $("#q"+i); c.scrollIntoView({behavior:"smooth",block:"start"}); c.setAttribute("tabindex","-1"); c.focus({preventScroll:true}); };
+  app.querySelectorAll(".qprev").forEach(b => b.onclick = () => {
+    const i = +b.dataset.i;
+    if (i>1) go(i-1); else { pendingScroll = 4; location.hash = "topic-" + (t-1); }
+  });
+  app.querySelectorAll(".qnext").forEach(b => b.onclick = () => {
+    const i = +b.dataset.i;
+    if (i<4) go(i+1); else location.hash = "topic-" + (t+1);
+  });
+}
+
+function renderModels(){
+  document.title = "Speaking Structures · TOEFL Speaking Practice";
+  app.innerHTML = '<div class="crumb"><a href="#home">All topics</a> / Speaking Structures</div>' +
+    '<h1 style="font-size:clamp(24px,4.4vw,32px);margin-bottom:6px">My Four Speaking Structures</h1>' +
+    '<p style="margin:0 0 20px;max-width:62ch">Every answer has five sentences: Answer, Reason, Explanation, Example, Ending. Pick the model that fits the question, then fill in the brackets.</p>' +
+    '<div class="models">' + MODELS.map(m =>
+      '<section class="model"><h2>Model ' + m.n + ': ' + esc(m.title) + '</h2><ol>' +
+      m.steps.map((s,k) => '<li><b>' + (k+1) + '. ' + s[0] + '</b><span>' + esc(s[1]) + '</span></li>').join("") +
+      '</ol></section>').join("") + '</div>';
+}
+
+function renderFavourites(){
+  document.title = "Favourite Questions · TOEFL Speaking Practice";
+  const items = [];
+  TOPICS.forEach(T => T.questions.forEach((x,k) => { if (isFav(T.id,k+1)) items.push([T,k+1,x]); }));
+  app.innerHTML = '<div class="crumb"><a href="#home">All topics</a> / Favourites</div>' +
+    '<h1 style="font-size:clamp(24px,4.4vw,32px);margin-bottom:14px">Favourite Questions</h1>' +
+    (items.length ? '<div class="toolbar"><button class="btn" type="button" id="favShow">Show All Answers</button><button class="btn" type="button" id="favHide">Hide All Answers</button></div>' : '') +
+    (items.length ? items.map(([T,i,x]) =>
+      '<article class="card fav-item" data-t="' + T.id + '" data-i="' + i + '">' +
+      '<div class="from"><a href="#topic-' + T.id + '">Practice ' + T.id + ': ' + esc(T.name) + '</a> · Question ' + i + ' of 4</div>' +
+      '<div class="qtext">' + esc(x.q) + '</div>' +
+      '<div class="ans-wrap">' + answerBlock(T.id,i,false) + '</div>' +
+      '<div class="actions"><button class="btn toggle" type="button" aria-expanded="false" aria-controls="ans-' + T.id + '-' + i + '">Show Answer</button>' +
+      '<a class="btn primary" href="#practice-' + T.id + '-' + i + '">Practice</a>' +
+      '<button class="btn unfav" type="button">Remove from favourites</button></div></article>').join("")
+     : '<p class="empty" style="padding-left:0">No favourites yet. Open a topic and press “☆ Favourite” on any question to collect it here.</p>');
+  const setOpen = (card,open) => {
+    const b = card.querySelector(".toggle"), box = card.querySelector(".answer");
+    box.hidden = !open; b.setAttribute("aria-expanded",String(open)); b.textContent = open ? "Hide Answer" : "Show Answer";
+  };
+  app.querySelectorAll(".fav-item").forEach(card => {
+    card.querySelector(".toggle").onclick = () => setOpen(card, card.querySelector(".toggle").getAttribute("aria-expanded")!=="true");
+    card.querySelector(".unfav").onclick = () => { toggle("fav",+card.dataset.t,+card.dataset.i); updateChrome(); renderFavourites(); };
+  });
+  const s = $("#favShow"), h = $("#favHide");
+  if (s) s.onclick = () => app.querySelectorAll(".fav-item").forEach(c => setOpen(c,true));
+  if (h) h.onclick = () => app.querySelectorAll(".fav-item").forEach(c => setOpen(c,false));
+}
+
+function renderPractice(t,i){
+  const T = TOPICS[t-1], x = T.questions[i-1];
+  document.title = "Practice · " + T.name;
+  let remaining = TIMER_SECONDS, endAt = 0, state = "idle";
+  app.innerHTML = '<div class="practice">' +
+    '<div class="crumb"><a href="#topic-' + t + '">← Back to ' + esc(T.name) + '</a></div>' +
+    '<div class="kicker" style="color:var(--muted);font-size:15px">Practice ' + t + ' · ' + esc(T.name) + ' · Question ' + i + ' of 4</div>' +
+    '<div class="qtext">' + esc(x.q) + '</div>' +
+    '<div class="clock" id="clock" role="timer" aria-live="off">0:45</div>' +
+    '<p class="tstate" id="tstate" aria-live="polite">Read the question, press Start, and answer aloud.</p>' +
+    '<div class="actions"><button class="btn primary" type="button" id="start">Start</button>' +
+    '<button class="btn" type="button" id="pause" disabled>Pause</button>' +
+    '<button class="btn" type="button" id="reset">Reset</button></div>' +
+    '<div class="actions" style="margin-top:14px"><button class="btn" type="button" id="view" hidden>View my prepared answer</button></div>' +
+    '<div class="answer" id="pans" hidden><p>' + esc(x.a) + '</p></div>' +
+    '<div class="actions" style="margin-top:22px"><label class="check' + (isDone(t,i)?' on':'') + '"><input type="checkbox" id="pdone"' + (isDone(t,i)?' checked':'') + '> Completed</label>' +
+    (i<4 ? '<a class="btn" href="#practice-' + t + '-' + (i+1) + '">Next question →</a>' : '<a class="btn" href="#topic-' + t + '">Back to topic →</a>') + '</div></div>';
+  const clock = $("#clock"), ts = $("#tstate");
+  const show = s => { clock.textContent = Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); };
+  const tick = () => {
+    remaining = Math.max(0, Math.ceil((endAt - Date.now())/1000)); show(remaining);
+    if (remaining <= 0) finish();
+  };
+  function finish(){
+    stopTimer(); state = "done"; remaining = 0; show(0);
+    clock.classList.add("end"); ts.textContent = "Time is up. You can now check your prepared answer.";
+    $("#start").disabled = true; $("#pause").disabled = true; $("#view").hidden = false;
+  }
+  $("#start").onclick = () => {
+    if (state === "running") return;
+    state = "running"; endAt = Date.now() + remaining*1000; stopTimer(); timerId = setInterval(tick, 200);
+    ts.textContent = "Speaking… keep going until the timer ends.";
+    $("#start").disabled = true; $("#pause").disabled = false;
+  };
+  $("#pause").onclick = () => {
+    if (state !== "running") return;
+    tick(); if (state === "done") return;
+    stopTimer(); state = "paused"; ts.textContent = "Paused. Press Start to continue.";
+    $("#start").disabled = false; $("#start").textContent = "Resume"; $("#pause").disabled = true;
+  };
+  $("#reset").onclick = () => {
+    stopTimer(); state = "idle"; remaining = TIMER_SECONDS; show(remaining); clock.classList.remove("end");
+    ts.textContent = "Read the question, press Start, and answer aloud.";
+    $("#start").disabled = false; $("#start").textContent = "Start"; $("#pause").disabled = true;
+    $("#view").hidden = true; $("#pans").hidden = true; $("#view").textContent = "View my prepared answer";
+  };
+  $("#view").onclick = () => { const p = $("#pans"); p.hidden = !p.hidden; $("#view").textContent = p.hidden ? "View my prepared answer" : "Hide my prepared answer"; };
+  $("#pdone").onchange = e => { toggle("done",t,i); e.target.parentElement.classList.toggle("on", e.target.checked); };
+}
+
+/* ---------- Router ---------- */
+function route(){
+  stopTimer();
+  const h = location.hash.replace("#","") || "home";
+  let m, scrollTo = null;
+  if ((m = h.match(/^topic-(\d+)$/)) && +m[1]>=1 && +m[1]<=15) { renderTopic(+m[1]); if (pendingScroll) scrollTo = pendingScroll; }
+  else if ((m = h.match(/^practice-(\d+)-(\d)$/)) && +m[1]>=1 && +m[1]<=15 && +m[2]>=1 && +m[2]<=4) renderPractice(+m[1], +m[2]);
+  else if (h === "models") renderModels();
+  else if (h === "favourites") renderFavourites();
+  else renderHome();
+  updateChrome();
+  if (scrollTo) { const c = $("#q"+scrollTo); if (c) { c.scrollIntoView({block:"start"}); c.setAttribute("tabindex","-1"); c.focus({preventScroll:true}); } }
+  else window.scrollTo(0,0);
+  pendingScroll = null;
+}
+window.addEventListener("hashchange", route);
+route();
+
+/* ---------- Ask AI assistant ---------- */
+(function(){
+  const fab=$("#askFab"), panel=$("#askPanel"), msgs=$("#askMsgs"), form=$("#askForm"), input=$("#askInput"),
+        send=$("#askSend"), stop=$("#askStop");
+  let sample=null, mode=null, turns=[], ctl=null, busy=false, apiKey="";
+  const KEYSTORE="toefl-hub-anthropic-key", MODEL="claude-sonnet-5-5";
+  try{ apiKey=localStorage.getItem(KEYSTORE)||""; }catch(e){}
+  async function streamAnthropic(system,messages,o){
+    let res;
+    try{
+      res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",signal:o.signal,
+        headers:{"content-type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+        body:JSON.stringify({model:MODEL,max_tokens:2048,stream:true,system:system,messages:messages})});
+    }catch(e){ if(e&&e.name==="AbortError") throw {code:"cancelled"}; throw {code:"network"}; }
+    if(!res.ok){ throw {code: res.status===401||res.status===403?"bad_key": res.status===429?"rate_limited": res.status===400?"invalid_request":"upstream_error"}; }
+    const reader=res.body.getReader(), dec=new TextDecoder(); let buf="", text="", truncated=false;
+    try{
+      for(;;){
+        const {done,value}=await reader.read(); if(done) break;
+        buf+=dec.decode(value,{stream:true});
+        let i; while((i=buf.indexOf("\n\n"))>=0){
+          const ev=buf.slice(0,i); buf=buf.slice(i+2);
+          const line=ev.split("\n").find(l=>l.startsWith("data:")); if(!line) continue;
+          let j; try{ j=JSON.parse(line.slice(5)); }catch(e){ continue; }
+          if(j.type==="content_block_delta"&&j.delta&&j.delta.type==="text_delta"){ text+=j.delta.text; o.onText({text:text,delta:j.delta.text}); }
+          else if(j.type==="message_delta"&&j.delta&&j.delta.stop_reason==="max_tokens") truncated=true;
+          else if(j.type==="error") throw {code:"upstream_error",text:text};
+        }
+      }
+    }catch(e){ if(e&&e.name==="AbortError") throw {code:"cancelled",text:text}; if(e&&e.code) throw e; throw {code:"upstream_error",text:text}; }
+    if(!text.trim()) throw {code:"empty_completion"};
+    return {text:text,truncated:truncated};
+  }
+  const RULES = "You are Ask AI, a helpful, knowledgeable and friendly AI assistant inside a student's TOEFL Speaking practice website, and you work like ChatGPT. " +
+    "Answer whatever the user asks, on any subject, clearly, accurately and with the depth the question needs. Use Markdown when it helps: short paragraphs, bullet or numbered lists, **bold** for key terms, and code blocks for code. " +
+    "Be direct, give examples, and say so honestly when you are unsure. When you explain English, grammar or TOEFL speaking, keep your own words simple, because the user is an English learner. " +
+    "The site shows the user's own prepared answers using four models: Model 1 (In my case...), Model 2 (I would say that I prefer...), Model 3 (In my opinion...), Model 4 (I think ... is important because...), each with five sentences: Answer, Reason, Explanation, Example, Ending. " +
+    "IMPORTANT: whenever you write, rewrite, correct or suggest a TOEFL speaking answer, use ONLY these four structures exactly, with exactly five sentences and these exact sentence starters, and simple English. Model 1 (experience and habits): In my case, I usually [activity]. The main reason is that [reason]. This means that [explanation]. For example, [specific example]. As a result, [result]. Model 2 (preference and comparison): I would say that I prefer [option A] to [option B]. The main reason is that [reason]. This means that [explanation]. For example, [specific example]. Compared with [option B], [option A] is more [benefit] for me. Model 3 (opinion): In my opinion, [opinion]. The main reason is that [reason]. This means that [explanation]. For example, [specific example]. Therefore, I believe [final opinion]. Model 4 (benefits and importance): I think [topic] is important because [reason]. One major benefit is that [benefit]. This is useful because [explanation]. For example, [specific example]. As a result, [positive outcome]. Never invent a different structure. " +
+    "Use the page context below only when the question relates to it; otherwise ignore it. You cannot browse the internet, so do not claim to look things up live.";
+  function pageContext(){
+    const h = location.hash.replace("#",""), m = h.match(/^topic-(\d+)$/), p = h.match(/^practice-(\d+)-(\d)$/);
+    if (m && TOPICS[+m[1]-1]) { const T=TOPICS[+m[1]-1];
+      return "The user is viewing the topic \"" + T.name + "\". Its questions and prepared answers:\n" + T.questions.map((x,i)=>"Q"+(i+1)+": "+x.q+"\nAnswer: "+x.a).join("\n"); }
+    if (p && TOPICS[+p[1]-1]) { const T=TOPICS[+p[1]-1], x=T.questions[+p[2]-1];
+      return "The user is practising the topic \"" + T.name + "\", question " + p[2] + ": " + x.q + "\nTheir prepared answer: " + x.a; }
+    return "The user is on the homepage or another page of the site.";
+  }
+  /* small, safe Markdown renderer: everything is escaped first */
+  function inline(s){
+    return s.replace(/`([^`]+)`/g,"<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+      .replace(/(^|[^*])\*([^*\s][^*]*)\*/g,"$1<em>$2</em>")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
+  function md(src){
+    const blocks=[]; let s=esc(src).replace(/```[a-zA-Z0-9]*\n?([\s\S]*?)(```|$)/g,(_,c)=>{ blocks.push(c.replace(/\n$/,"")); return "\u0000"+(blocks.length-1)+"\u0000"; });
+    const lines=s.split("\n"), out=[]; let list=null, para=[];
+    const flushP=()=>{ if(para.length){ out.push("<p>"+inline(para.join("<br>"))+"</p>"); para=[]; } };
+    const flushL=()=>{ if(list){ out.push("</"+list+">"); list=null; } };
+    for(const raw of lines){
+      const l=raw.trimEnd(); let m;
+      if(/^\u0000\d+\u0000$/.test(l.trim())){ flushP(); flushL(); out.push("<pre><code>"+blocks[+l.trim().slice(1,-1)]+"</code></pre>"); }
+      else if((m=l.match(/^(#{1,4})\s+(.*)$/))){ flushP(); flushL(); out.push("<h4>"+inline(m[2])+"</h4>"); }
+      else if((m=l.match(/^\s*[-*•]\s+(.*)$/))){ flushP(); if(list!=="ul"){ flushL(); out.push("<ul>"); list="ul"; } out.push("<li>"+inline(m[1])+"</li>"); }
+      else if((m=l.match(/^\s*\d+[.)]\s+(.*)$/))){ flushP(); if(list!=="ol"){ flushL(); out.push("<ol>"); list="ol"; } out.push("<li>"+inline(m[1])+"</li>"); }
+      else if(l.trim()===""){ flushP(); flushL(); }
+      else { flushL(); para.push(l); }
+    }
+    flushP(); flushL();
+    return out.join("").replace(/\u0000(\d+)\u0000/g,(_,i)=>blocks[+i]);
+  }
+  function add(cls,text){ const d=document.createElement("div"); d.className="msg "+cls; if(cls==="bot") d.innerHTML=md(text); else d.textContent=text; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; return d; }
+  function tools(bubble,text){
+    const bar=document.createElement("div"); bar.className="msgtools";
+    const c=document.createElement("button"); c.type="button"; c.textContent="Copy";
+    c.onclick=async()=>{ try{ await navigator.clipboard.writeText(text); c.textContent="Copied"; }catch(e){ const r=document.createRange(); r.selectNodeContents(bubble); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); c.textContent="Selected, press copy"; } setTimeout(()=>c.textContent="Copy",1800); };
+    bar.appendChild(c); bubble.appendChild(bar);
+  }
+  function copyFor(c){
+    return c==="bad_key" ? "Your API key was not accepted. Press API key and enter it again."
+      : c==="network" ? "Could not reach the AI service. Check your internet connection and try again."
+      : c==="rate_limited" ? "Too many requests or your usage limit is reached. Please wait a little and try again."
+      : c==="session_expired" ? "Please sign in to Claude again, then send your message again."
+      : c==="refused" ? "I could not answer that. Try asking in a different way."
+      : c==="prompt_too_large" ? "That message is too long. Please shorten it."
+      : "Something went wrong. Please press Ask to try again.";
+  }
+  function keyForm(){
+    const b=document.createElement("div"); b.className="keybox";
+    b.innerHTML='<p><strong>Connect your AI key</strong></p><p>This downloaded copy needs your own Anthropic API key to chat. Create one at console.anthropic.com. It is saved only in this browser and sent only to Anthropic. Usage is billed to your Anthropic account.</p>'+
+      '<label class="sr" for="askKeyInput">Anthropic API key</label><input id="askKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off"><button class="btn primary" type="button" id="askKeySave">Save key</button>';
+    msgs.appendChild(b);
+    const save=()=>{ const v=$("#askKeyInput").value.trim(); if(!v) return; apiKey=v; try{ localStorage.setItem(KEYSTORE,v); }catch(e){} intro(); input.focus(); };
+    $("#askKeySave").onclick=save; $("#askKeyInput").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); save(); } });
+  }
+  function intro(){
+    msgs.innerHTML="";
+    if(mode==="api"&&!apiKey){ add("bot","Hi! I am Ask AI. Connect your key below and you can ask me anything."); keyForm(); return; }
+    add("bot","Hi! I can answer anything: English and TOEFL doubts, word meanings, grammar, study tips, or any other question. What would you like to know?");
+    const c=document.createElement("div"); c.className="chips";
+    ["Explain this page in simple words","How can I remember my answers faster?","Correct my sentence and explain the mistake"].forEach(s=>{
+      const b=document.createElement("button"); b.type="button"; b.textContent=s;
+      b.onclick=()=>{ if(s.startsWith("Correct")){ input.value="Please correct this sentence and explain the mistake: "; input.focus(); } else ask(s); }; c.appendChild(b); });
+    msgs.appendChild(c);
+  }
+  function openPanel(o){
+    panel.hidden=!o; fab.hidden=o; fab.setAttribute("aria-expanded",String(o));
+    if (o) { if(!msgs.children.length) intro(); input.focus(); } else fab.focus();
+  }
+  async function ask(q){
+    q=(q||"").trim(); if(!q||busy||!mode) return;
+    if(mode==="api"&&!apiKey){ msgs.innerHTML=""; intro(); return; }
+    const chips=msgs.querySelector(".chips"); if(chips) chips.remove();
+    add("user",q); input.value=""; input.style.height=""; busy=true; send.hidden=true; stop.hidden=false; input.disabled=true;
+    turns.push({role:"user",content:q});
+    const recent=turns.slice(-24);
+    const lead={role:"user",content:RULES+"\n\nPage context:\n"+pageContext()+"\n\nContinue the conversation below. Reply to the last user message."};
+    const bubble=add("bot","Thinking…"); ctl=new AbortController();
+    try{
+      const onText=({text})=>{bubble.innerHTML=md(text);msgs.scrollTop=msgs.scrollHeight;};
+      const r = mode==="sample" ? await sample([lead,...recent],{cache:false,modelTier:"default",signal:ctl.signal,onText:onText})
+                                : await streamAnthropic(RULES+"\n\nPage context:\n"+pageContext(), recent, {signal:ctl.signal,onText:onText});
+      bubble.innerHTML=md(r.text); tools(bubble,r.text); turns.push({role:"assistant",content:r.text});
+      if(r.truncated) add("err","The answer was cut short. Ask me to continue.");
+    }catch(e){
+      turns.pop();
+      if(e&&e.text){ bubble.innerHTML=md(e.text); } else bubble.remove();
+      if(!e||e.code!=="cancelled") add("err",copyFor(e&&e.code));
+      if(e&&e.code==="bad_key"){ apiKey=""; try{ localStorage.removeItem(KEYSTORE); }catch(x){} add("err","Enter your key again to continue."); keyForm(); }
+      if(e&&["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(e.code)){ add("err","The AI assistant is not available for your account here."); }
+    }finally{ busy=false; ctl=null; send.hidden=false; stop.hidden=true; input.disabled=false; input.focus(); msgs.scrollTop=msgs.scrollHeight; }
+  }
+  fab.onclick=()=>openPanel(true);
+  $("#askClose").onclick=()=>openPanel(false);
+  $("#askNew").onclick=()=>{ if(ctl) ctl.abort(); turns=[]; intro(); input.focus(); };
+  stop.onclick=()=>{ if(ctl) ctl.abort(); };
+  $("#askKey").onclick=()=>{ if(ctl) ctl.abort(); apiKey=""; try{ localStorage.removeItem(KEYSTORE); }catch(e){} turns=[]; intro(); };
+  form.onsubmit=e=>{ e.preventDefault(); ask(input.value); };
+  input.addEventListener("input",()=>{ input.style.height="auto"; input.style.height=Math.min(input.scrollHeight,110)+"px"; });
+  input.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){ e.preventDefault(); ask(input.value); } if(e.key==="Escape") openPanel(false); });
+  (async()=>{
+    if(!window.claude){ mode="api"; $("#askKey").hidden=false; fab.hidden=false; return; }
+    try{ sample = window.claude.use ? await window.claude.use("sample") : null; }catch(e){ sample=null; }
+    if(sample){ mode="sample"; fab.hidden=false; }
+  })();
+})();
+</script>
+
+</body>
+</html>
